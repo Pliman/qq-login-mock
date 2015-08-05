@@ -1,0 +1,19 @@
+{
+  "name": "qq-login-mock",
+  "version": "1.0.0",
+  "description": "qq-login-mock",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pliman/qq-login-mock.git"
+  },
+  "author": "pliman",
+  "license": "MIT",
+  "devDependencies": {
+  },
+  "dependencies": {
+  }
+}
