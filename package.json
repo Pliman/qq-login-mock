@@ -12,9 +12,10 @@
   },
   "author": "pliman",
   "license": "MIT",
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
+    "express": "^4.13.3",
+    "node-oauth": "^0.1.3",
     "node-odata": "^0.7.6"
   }
 }
