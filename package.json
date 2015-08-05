@@ -15,5 +15,6 @@
   "devDependencies": {
   },
   "dependencies": {
+    "node-odata": "^0.7.6"
   }
 }
