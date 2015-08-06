@@ -26,13 +26,13 @@ if (loginedUsersStr) {
 }
 
 function setLoginedUsers(loginedUsers) {
-	setLastLoginedUser(loginedUsers.lastLoginedUser);
+	setCurrentLoginedUser(loginedUsers.lastLoginedUser);
 	useSavedPass = true;
 
 	setLoginedUsersList(loginedUsers.loginedUsers);
 }
 
-function setLastLoginedUser(lastLoginedUser) {
+function setCurrentLoginedUser(lastLoginedUser) {
 	if (!lastLoginedUser) {
 		$('#userName').val('');
 		$('#userPassword').val('');
@@ -47,14 +47,22 @@ function setLastLoginedUser(lastLoginedUser) {
 }
 
 function addLoginedUser(loginedUser) {
-	var tplHTML = '<div class="ui-form-item ui-border-b">' +
-		//'<div class="ui-avatar-s">' +
-		//'<span id="avatar" style="background-image:url(./upload/u1.png)"></span>' +
-		//'</div>' +
-		'<input type="text" readonly value="<%=name%>">' +
-		'<a href="javascript:removeLoginedUser(\'<%=name%>\')" class="ui-icon-close"></a>' +
-		'</div>';
-	$('#loginedUsers').append($.tpl(tplHTML,{name: loginedUser.name}));
+	var div = $('<div class="ui-form-item ui-border-b"></div>');
+	div.click(function () {
+		setCurrentLoginedUser(loginedUser);
+	});
+
+	//var tplHTML = '<div class="ui-form-item ui-border-b" onclick="">' +
+	//	//'<div class="ui-avatar-s">' +
+	//	//'<span id="avatar" style="background-image:url(./upload/u1.png)"></span>' +
+	//	//'</div>' +
+	//	'<input type="text" readonly value="<%=name%>">' +
+	//	'<a href="javascript:removeLoginedUser(\'<%=name%>\')" class="ui-icon-close"></a>' +
+	//	'</div>';
+	var tplHTML = '<input type="text" readonly value="<%=name%>">' +
+		'<a href="javascript:removeLoginedUser(\'<%=name%>\')" class="ui-icon-close"></a>';
+	div.append($.tpl(tplHTML,{name: loginedUser.name}));
+	$('#loginedUsers').append(div);
 }
 
 function setLoginedUsersList(loginedUsers) {
