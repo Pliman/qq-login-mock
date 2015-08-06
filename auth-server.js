@@ -115,7 +115,7 @@ app.get('/', function(req, res, next) {
 	res.end('home, logged in? ' + !!req.session.user);
 });
 
-app.get('/user', function(req, res, next) {
+app.get('/user/:name', function(req, res, next) {
 	if(req.session.user) {
 		res.writeHead(303, {Location: '/'});
 		return res.end();

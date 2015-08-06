@@ -1,20 +1,15 @@
-var OAuth = require('oauth');
+var OAuth = require('oauth'),
+	config = require('../config/config');
 
 var authentication = module.exports;
 
-authentication.getAccessToken = function () {
-	var OAuth2 = OAuth.OAuth2;
-	var oauth2 = new OAuth2('1',
-		'1secret',
-		'http://localhost:3001',
-		null,
-		'',
-		null);
+authentication.getAccessToken = function (userName, password, cb) {
+	var oauth2 = new OAuth.OAuth2(config.oauth.appId, config.oauth.appSecret, config.oauth.host + ':' + config.oauth.port);
 
 	oauth2.getOAuthAccessToken(
 		'',
-		{'grant_type': 'password', 'username': 'guest', 'password': '1'},
+		{'grant_type': 'password', 'username': userName, 'password': password},
 		function (e, access_token, refresh_token, results) {
-			console.log('bearer: ', access_token);
+			cb && cb(e, access_token);
 		});
 };
