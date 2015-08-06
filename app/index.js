@@ -52,14 +52,10 @@ function addLoginedUser(loginedUser) {
 		setCurrentLoginedUser(loginedUser);
 	});
 
-	//var tplHTML = '<div class="ui-form-item ui-border-b" onclick="">' +
-	//	//'<div class="ui-avatar-s">' +
-	//	//'<span id="avatar" style="background-image:url(./upload/u1.png)"></span>' +
-	//	//'</div>' +
-	//	'<input type="text" readonly value="<%=name%>">' +
-	//	'<a href="javascript:removeLoginedUser(\'<%=name%>\')" class="ui-icon-close"></a>' +
-	//	'</div>';
-	var tplHTML = '<input type="text" readonly value="<%=name%>">' +
+	var tplHTML = '<div class="ui-avatar-s">' +
+			'<span id="avatar" style="background-image:url(./upload/u1.png)"></span>' +
+			'</div>' +
+			'<input type="text" readonly value="<%=name%>">' +
 		'<a href="javascript:removeLoginedUser(\'<%=name%>\')" class="ui-icon-close"></a>';
 	div.append($.tpl(tplHTML,{name: loginedUser.name}));
 	$('#loginedUsers').append(div);
@@ -73,11 +69,20 @@ function setLoginedUsersList(loginedUsers) {
 
 // 页面事件
 $('#login').click(function (evt) {
-	evt.stopImmediatePropagation();
-	$.post('/login', {
-		userName: $('#userName').val(),
-		userPassword: useSavedPass ? lastMD5Pass : md5($('#userPassword').val()),
-	}, function (rtn) {
+	//evt.stopImmediatePropagation();
+	//$.post('/login', {
+	//	userName: $('#userName').val(),
+	//	userPassword: useSavedPass ? lastMD5Pass : md5($('#userPassword').val()),
+	//}, function (rtn) {
+	//	if (rtn.result === 'SUCCESS') {
+	//		addToLoginedUsers(rtn.data);
+	//	} else {
+	//		showError(rtn.msg);
+	//	}
+	//}, 'json');
+
+	$.post('http://localhost:3001/oauth/access_token', {"client_id":"1","client_secret":"1secret",grant_type:'password'
+	,username:'guest',password:'2'}, function (rtn) {
 		if (rtn.result === 'SUCCESS') {
 			addToLoginedUsers(rtn.data);
 		} else {

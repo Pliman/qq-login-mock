@@ -1,5 +1,6 @@
-var express = require('express');
-var app = express();
+var express = require('express'),
+	app = express(),
+	login = require('./src/login/login');
 
 var path = require('path');
 
@@ -20,14 +21,7 @@ app.use(require('express-session')({
 	}
 }));
 
-app.post('/login', function (req, res, next) {
-	var user = { name: req.body.userName, password: req.body.userPassword, avatar: 'u1.png'}
-	res.send({
-		result : 'SUCCESS',
-		msg : 'Login success!!!',
-		data : user
-	});
-});
+app.post('/login', login.doLogin);
 
 app.use(express.static(path.join(__dirname, 'app')));
 
