@@ -21,7 +21,7 @@ app.use(require('express-session')({
 }));
 
 app.post('/login', function (req, res, next) {
-	var user = { name: 'tom', password: '1111', avatar: 'u1.png'}
+	var user = { name: req.body.userName, password: req.body.userPassword, avatar: 'u1.png'}
 	res.send({
 		result : 'SUCCESS',
 		msg : 'Login success!!!',
@@ -31,6 +31,6 @@ app.post('/login', function (req, res, next) {
 
 app.use(express.static(path.join(__dirname, 'app')));
 
-var server = app.listen(3001, function () {
-	console.log("listening on port %d in %s mode", 3001, app.settings.env);
+var server = app.listen(3002, function () {
+	console.log("listening on port %d in %s mode", 3002, app.settings.env);
 });

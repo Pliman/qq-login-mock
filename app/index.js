@@ -5,7 +5,7 @@ var useSavedPass = false;
 var lastMD5Pass = '';
 var loginedUsers = null;
 
-// 绑定页面事件
+// 输入框事件
 $('#userName').keyup(function () {
 	$('#userPassword').val('');
 	useSavedPass = false;
@@ -29,10 +29,17 @@ function setLoginedUsers(loginedUsers) {
 	setLastLoginedUser(loginedUsers.lastLoginedUser);
 	useSavedPass = true;
 
-	loginedUsers.loginedUsers.forEach(addLoginedUser);
+	setLoginedUsersList(loginedUsers.loginedUsers);
 }
 
 function setLastLoginedUser(lastLoginedUser) {
+	if (!lastLoginedUser) {
+		$('#userName').val('');
+		$('#userPassword').val('');
+		$('#avatar').css('background-image', '');
+		return;
+	}
+
 	$('#userName').val(lastLoginedUser.name);
 	$('#userPassword').val('xxxxxxxxxxxxxxxx');
 	lastMD5Pass = lastLoginedUser.password;
@@ -41,16 +48,22 @@ function setLastLoginedUser(lastLoginedUser) {
 
 function addLoginedUser(loginedUser) {
 	var tplHTML = '<div class="ui-form-item ui-border-b">' +
-		'<div class="ui-avatar-s">' +
-		'<span id="avatar" style="background-image:url(./upload/u1.png)"></span>' +
-		'</div>' +
+		//'<div class="ui-avatar-s">' +
+		//'<span id="avatar" style="background-image:url(./upload/u1.png)"></span>' +
+		//'</div>' +
 		'<input type="text" readonly value="<%=name%>">' +
-		'<a href="#" class="ui-icon-close"></a>' +
+		'<a href="javascript:removeLoginedUser(\'<%=name%>\')" class="ui-icon-close"></a>' +
 		'</div>';
 	$('#loginedUsers').append($.tpl(tplHTML,{name: loginedUser.name}));
 }
 
-// 登录事件
+function setLoginedUsersList(loginedUsers) {
+	$('#loginedUsers').html('');
+
+	loginedUsers.forEach(addLoginedUser);
+}
+
+// 页面事件
 $('#login').click(function (evt) {
 	evt.stopImmediatePropagation();
 	$.post('/login', {
@@ -67,13 +80,31 @@ $('#login').click(function (evt) {
 
 function addToLoginedUsers(user) {
 	if (loginedUsers) {
+		// 如果登陆过，设置为最新登录用户
+		var userIndex = -1;
+
+		for (var i = 0; i < loginedUsers.loginedUsers.length; i++) {
+			var loginedUser = loginedUsers.loginedUsers[i];
+
+			if (loginedUser.name === user.name) {
+				userIndex = i;
+				break;
+			}
+		}
+
+		if (userIndex !== -1) {
+			loginedUsers.loginedUsers.splice(userIndex, 1);
+		}
+
 		loginedUsers.loginedUsers.push(user);
 		loginedUsers.lastLoginedUser = user;
 	} else {
 		loginedUsers = {loginedUsers: [user], lastLoginedUser: user}
 	}
 
-	LocalStorageDao.put(loginedUsersKey, JSON.stringify(loginedUsers));
+	saveLoginedUsers(loginedUsers);
+
+	setLoginedUsers(loginedUsers);
 }
 
 function showError(msg) {
@@ -82,4 +113,24 @@ function showError(msg) {
 		stayTime:2000,
 		type:"warn"
 	});
+}
+
+function removeLoginedUser(userName) {
+	_.remove(loginedUsers.loginedUsers, function (loginedUser) {
+		return loginedUser.name === userName;
+	});
+
+	if (loginedUsers.loginedUsers.length) {
+		loginedUsers.lastLoginedUser = loginedUsers.loginedUsers.slice(-1)[0];
+	} else {
+		loginedUsers.lastLoginedUser = null;
+	}
+
+	saveLoginedUsers(loginedUsers);
+
+	setLoginedUsers(loginedUsers);
+}
+
+function saveLoginedUsers(loginedUsersObj) {
+	LocalStorageDao.put(loginedUsersKey, JSON.stringify(loginedUsersObj));
 }
