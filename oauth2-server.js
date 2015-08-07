@@ -116,6 +116,8 @@ myOAP.on('client_auth', function (client_id, client_secret, username, password, 
 
 			return next(null, user_id);
 		}
+
+		return next(new Error('client authentication denied'));
 	});
 });
 

@@ -7,7 +7,10 @@ var loginedUsers = null;
 
 // 输入框事件
 $('#userName').keyup(function () {
-	$('#userPassword').val('');
+	if (useSavedPass) {
+		$('#userPassword').val('');
+	}
+
 	useSavedPass = false;
 });
 
@@ -69,15 +72,23 @@ function setLoginedUsersList(loginedUsers) {
 
 // 页面事件
 $('#login').click(function (evt) {
-	evt.stopImmediatePropagation();
+	if (!$('#userName').val()) {
+		return showError('请输入用户名');
+	}
+
+	if (!useSavedPass && !$('#userPassword').val()) {
+		return showError('请输入密码');
+	}
+
 	$.post('/login', {
 		userName: $('#userName').val(),
 		userPassword: useSavedPass ? lastMD5Pass : md5($('#userPassword').val()),
 	}, function (rtn) {
 		if (rtn.result === 'SUCCESS') {
 			addToLoginedUsers(rtn.data);
+			window.location.href = '/success.html';
 		} else {
-			showError(rtn.msg);
+			showError('账号或密码错误，请重新输入');
 		}
 	}, 'json');
 });
