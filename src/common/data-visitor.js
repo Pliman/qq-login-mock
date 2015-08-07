@@ -24,7 +24,7 @@ dataVisitor.visit = function (collection, filterObj, cb) {
 
 		res.on('end', function (data) {
 			data && allData.push(data);
-			cb && cb(null, JSON.parse(allData.join()));
+			cb && cb(null, JSON.parse(allData.join('')));
 		})
 	});
 

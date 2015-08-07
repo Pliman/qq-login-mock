@@ -80,17 +80,28 @@ $('#login').click(function (evt) {
 		return showError('请输入密码');
 	}
 
-	$.post('/login', {
-		userName: $('#userName').val(),
-		userPassword: useSavedPass ? lastMD5Pass : md5($('#userPassword').val()),
-	}, function (rtn) {
-		if (rtn.result === 'SUCCESS') {
-			addToLoginedUsers(rtn.data);
-			window.location.href = '/success.html';
-		} else {
+	$.ajax({
+		url: '/login',
+		type: 'post',
+		cache: false,
+		dataType: 'json',
+		data: {
+			userName: $('#userName').val(),
+			userPassword: useSavedPass ? lastMD5Pass : md5($('#userPassword').val())
+		},
+		success: function (rtn) {
+			if (rtn.result === 'SUCCESS') {
+				addToLoginedUsers(rtn.data);
+				//window.location.href = '/success.html';
+			} else {
+				showError('账号或密码错误，请重新输入');
+			}
+		},
+		error: function (rtn) {
 			showError('账号或密码错误，请重新输入');
 		}
-	}, 'json');
+
+	});
 });
 
 function addToLoginedUsers(user) {

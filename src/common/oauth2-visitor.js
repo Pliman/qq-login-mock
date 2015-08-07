@@ -21,7 +21,7 @@ oauthVisitor.visit = function (path, accessToken, params, cb) {
 
 		res.on('end', function (data) {
 			data && allData.push(data);
-			cb && cb(null, allData.join());
+			cb && cb(null, allData.join(''));
 		})
 	});
 

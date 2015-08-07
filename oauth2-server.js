@@ -141,7 +141,7 @@ app.get('/', function (req, res, next) {
 app.get('/user/:name', function (req, res) {
 	if (req.session.user) {
 		dataVisitor.visit('users', {
-			name: req.session.user,
+			name: req.param('name'),
 		}, function (err, data) {
 			if (err) {
 				return next(new Error(err));
@@ -155,11 +155,11 @@ app.get('/user/:name', function (req, res) {
 				});
 			}
 
-			return res.send(JSON.stringify({
+			return res.send({
 				result: 'SUCCESS',
 				msg: '',
 				data: data.value[0]
-			}));
+			});
 		});
 	} else {
 		next(new Error('client authentication denied'));
