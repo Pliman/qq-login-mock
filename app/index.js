@@ -28,10 +28,7 @@ $('#userName, #userPassword').blur(function () {
 
 $('#userChanger').click(function(e){
 	$(this).parent().addClass("hover");
-	$('ul.dropdown li > ul').animate({
-		opacity: 0
-	}, 100, 'ease-out');
-	$(this).find('ul').animate({
+	$('ul.dropdown').find('ul').animate({
 		opacity: 1
 	}, 100, 'ease-out');
 });

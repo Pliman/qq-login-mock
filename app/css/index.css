@@ -27,6 +27,7 @@ body {
 .logined-user {
 	background-color:white;
 	border-bottom: 1px solid #cccccc;
+	position: relative;
 }
 
 .ui-form-item-lg {
@@ -65,5 +66,5 @@ body {
 
 /*dropdown*/
 ul.dropdown                         	{ position: relative; }
-ul.dropdown ul 					{ width: 100%; visibility: hidden; position: absolute; top: 105%; left: 0;}
+ul.dropdown ul 					{ width: 100%; visibility: hidden; position: absolute; top: 101%; left: 0;}
 ul.dropdown .hover > ul 			{ visibility: visible; opacity:0;}
