@@ -12,19 +12,39 @@ $('#userName').keyup(function () {
 	}
 
 	useSavedPass = false;
+	focusUserName();
 });
 
 $('#userPassword').keyup(function () {
 	useSavedPass = false;
+	focusUserPassword();
 });
 
-$('#userName, #userPassword').focus(function () {
-	$(this).parent().addClass('focused');
-});
+$('#userName').focus(focusUserName);
 
-$('#userName, #userPassword').blur(function () {
-	$(this).parent().removeClass('focused');
-});
+function focusUserName() {
+	$('#userPasswordCleaner').css('visibility', 'hidden');
+
+	if (!$('#userName').val()) {
+		$('#userNameCleaner').css('visibility', 'hidden');
+		return;
+	}
+
+	$('#userNameCleaner').css('visibility', 'visible');
+}
+
+$('#userPassword').focus(focusUserPassword);
+
+function focusUserPassword() {
+	$('#userNameCleaner').css('visibility', 'hidden');
+
+	if (!$('#userPassword').val()) {
+		$('#userPasswordCleaner').css('visibility', 'hidden');
+		return;
+	}
+
+	$('#userPasswordCleaner').css('visibility', 'visible');
+}
 
 $('#userChanger').click(function(e){
 	e.stopImmediatePropagation();

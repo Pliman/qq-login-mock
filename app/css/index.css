@@ -60,10 +60,6 @@ body {
 	visibility: hidden;
 }
 
-.ui-form .focused .cleaner {
-	visibility: visible;
-}
-
 /*dropdown*/
 ul.dropdown                         	{ position: relative; }
 ul.dropdown ul 					{ width: 100%; visibility: hidden; position: absolute; top: 101%; left: 0;}

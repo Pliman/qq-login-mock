@@ -24,13 +24,13 @@
 				<ul class="dropdown">
 					<div class="ui-form-item ui-form-item-lg ui-form-item-show ui-border-b input-container">
 						<input class="user-input" id='userName' type="text" placeholder="用户名">
-						<a onclick="$('#userName').val('')" class="ui-icon-close ui-form-item-lg cleaner" style="font-size: 36px;right: 40px"></a>
+						<a id="userNameCleaner" onclick="$('#userName').val('');$(this).css('visibility', 'hidden');" class="ui-icon-close ui-form-item-lg cleaner" style="font-size: 36px;right: 40px"></a>
 						<a id="userChanger" class="ui-icon-down ui-form-item-lg" style="font-size: 36px"></a>
 						<ul id="loginedUsers" style="z-index: 10"></ul>
 					</div>
 					<div class="ui-form-item ui-form-item-lg ui-form-item-show ui-border-b input-container">
 						<input class="user-input" id='userPassword' type="password" placeholder="密码">
-						<a href="#" onclick="$('#userPassword').val('')" class="ui-icon-close ui-form-item-lg cleaner" style="font-size: 36px;"></a>
+						<a id="userPasswordCleaner" href="#" onclick="$('#userPassword').val('');$(this).css('visibility', 'hidden');" class="ui-icon-close ui-form-item-lg cleaner" style="font-size: 36px;"></a>
 					</div>
 				</ul>
 			</form>
