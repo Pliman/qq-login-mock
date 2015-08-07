@@ -1,5 +1,7 @@
 # qq-login-mock
 
+测试服务器地址：
+http://121.42.52.101:3002/index.html
 测试用户
 Tom / 1111
 Jerry / 2222
@@ -7,7 +9,7 @@ Jerry / 2222
 一共三个服务器，分别是：
 app.js 应用服务器
 oauth2-server.js oauth2服务器 oauth2流程选的是"Username and Password Flow"，可以根据实际情况进行修改
-oauth2服务段使用了
+oauth2服务端使用了oauth2-provider oauth2客户端使用了node-odata来获取access_token
 data-server.js 数据服务器(odata)，理论上data-server.js只能由oauth2-server.js
 三个服务器可以分开部署，也可以部署在一起
 
@@ -19,3 +21,5 @@ data-server.js 数据服务器(odata)，理论上data-server.js只能由oauth2-s
 https://github.com/Pliman/qq-login-mock
 提交记录可以看出进展情况
 https://github.com/Pliman/qq-login-mock/commits/master
+
+测试时间仓促，可能会有些小bug
