@@ -20,6 +20,14 @@ $('#userPassword').keyup(function () {
 	focusUserPassword();
 });
 
+$('#userNameCleaner').click(function () {
+	$('#userName').val('');$(this).css('visibility', 'hidden');
+
+	if (useSavedPass) {
+		$('#userPassword').val('');
+	}
+});
+
 $('#userName').focus(focusUserName);
 
 function focusUserName() {
