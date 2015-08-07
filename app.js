@@ -22,6 +22,7 @@ app.use(require('express-session')({
 }));
 
 app.post('/login', login.doLogin);
+app.post('/login-out', login.doLoginOut);
 
 app.use(express.static(path.join(__dirname, 'app')));
 
