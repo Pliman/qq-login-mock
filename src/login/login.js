@@ -8,7 +8,7 @@ login.doLogin = function (req, res, next) {
 			processUser(err, data, res);
 		});
 	} else {
-		authentication.getAccessToken('guest', 'password', function (err, accessToken) {
+		authentication.getAccessToken(req.body.userName, req.body.userPassword, function (err, accessToken) {
 			if (err) {
 				res.writeHead(401);
 				return res.end(err.message);
@@ -24,7 +24,7 @@ login.doLogin = function (req, res, next) {
 
 };
 
-function getUser (userName, accessToken, cb) {
+function getUser(userName, accessToken, cb) {
 	oauthVisitor.visit('/user/' + userName, accessToken, null, cb);
 }
 
@@ -37,16 +37,22 @@ function processUser(err, data, res) {
 		});
 	}
 
-	try{
-		res.send({
-			result: 'SUCCESS',
-			msg: 'Login success!',
-			data: JSON.parse(data)
-		});
+	try {
+		var rtn = JSON.parse(data);
+
+		if (rtn.result === 'SUCCESS') {
+			return res.send({
+				result: 'SUCCESS',
+				msg: 'Login success!',
+				data: rtn.data
+			});
+		}
+
+		throw 'Login failed!';
 	} catch (e) {
 		res.send({
 			result: 'FAILED',
-			msg: 'not a user',
+			msg: e,
 			data: null
 		});
 	}
