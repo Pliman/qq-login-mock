@@ -1,6 +1,6 @@
 var login = module.exports,
 	authentication = require('../common/authentication'),
-	oauthVisitor = require('../common/oauth-visitor');
+	oauthVisitor = require('../common/oauth2-visitor');
 
 login.doLogin = function (req, res, next) {
 	if (req.session.accessToken) {

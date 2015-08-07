@@ -7,6 +7,8 @@ var OAuth2Provider = require('oauth2-provider').OAuth2Provider,
 	bodyParser = require('body-parser'),
 	cookieParser = require('cookie-parser');
 
+var dataVisitor = require('./src/common/data-visitor');
+
 // hardcoded list of <client id, client secret> tuples
 var myClients = {
 	'1': '1secret',
@@ -94,13 +96,17 @@ myOAP.on('access_token', function(req, token, next) {
 
 // (optional) client authentication (xAuth) for trusted clients
 myOAP.on('client_auth', function(client_id, client_secret, username, password, next) {
-	if(client_id == '1' && username == 'guest') {
-		var user_id = '1337';
+	dataVisitor.visit('users', {name: username, password: password}, function (err, data) {
+		if (err || !data.value.length) {
+			return next(new Error('client authentication denied'));
+		}
 
-		return next(null, user_id);
-	}
+		if(client_id == '1') {
+			var user_id = data.value[0].name;
 
-	return next(new Error('client authentication denied'));
+			return next(null, user_id);
+		}
+	});
 });
 
 app.use(bodyParser.urlencoded({extended: true}));

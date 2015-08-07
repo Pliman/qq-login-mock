@@ -1,3 +1,5 @@
+// 用于访问oauth2 接口，暂时没用
+
 var http = require('http'),
 	config = require('../config/config');
 
