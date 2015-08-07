@@ -27,10 +27,16 @@ $('#userName, #userPassword').blur(function () {
 });
 
 $('#userChanger').click(function(e){
+	e.stopImmediatePropagation();
 	$(this).parent().addClass("hover");
 	$('ul.dropdown').find('ul').animate({
 		opacity: 1
 	}, 100, 'ease-out');
+
+	$(document).click(function () {
+		$('#userChanger').parent().removeClass("hover");
+		$(document).unbind("click");;
+	});
 });
 
 // 加载本地已经登录的用户
@@ -74,7 +80,7 @@ function addLoginedUser(loginedUser) {
 			'<span style="background-image:url(./upload/<%=avatar%>)"></span>' +
 			'</div>' +
 		'<span>&nbsp;&nbsp;&nbsp;<%=name%></span>' +
-		'<a href="javascript:removeLoginedUser(\'<%=name%>\')" class="ui-icon-close ui-form-item-lg" style="font-size: 36px;"></a>';
+		'<a onclick="removeLoginedUser(event, \'<%=name%>\')" class="ui-icon-close ui-form-item-lg" style="font-size: 36px;"></a>';
 	div.append($.tpl(tplHTML,{avatar: loginedUser.avatar, name: loginedUser.name}));
 
 	$('#loginedUsers').append(div);
@@ -146,7 +152,7 @@ function addToLoginedUsers(user) {
 
 	saveLoginedUsers(loginedUsers);
 
-	setLoginedUsers(loginedUsers);
+	//setLoginedUsers(loginedUsers);
 }
 
 function showError(msg) {
@@ -157,7 +163,9 @@ function showError(msg) {
 	});
 }
 
-function removeLoginedUser(userName) {
+function removeLoginedUser(event, userName) {
+	event.stopImmediatePropagation();
+
 	_.remove(loginedUsers.loginedUsers, function (loginedUser) {
 		return loginedUser.name === userName;
 	});
