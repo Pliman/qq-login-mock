@@ -18,6 +18,24 @@ $('#userPassword').keyup(function () {
 	useSavedPass = false;
 });
 
+$('#userName, #userPassword').focus(function () {
+	$(this).parent().addClass('focused');
+});
+
+$('#userName, #userPassword').blur(function () {
+	$(this).parent().removeClass('focused');
+});
+
+$('#userChanger').click(function(e){
+	$(this).parent().addClass("hover");
+	$('ul.dropdown li > ul').animate({
+		opacity: 0
+	}, 100, 'ease-out');
+	$(this).find('ul').animate({
+		opacity: 1
+	}, 100, 'ease-out');
+});
+
 // 加载本地已经登录的用户
 var loginedUsersKey = 'logined-users';
 var loginedUsersStr = LocalStorageDao.get(loginedUsersKey);
@@ -50,17 +68,18 @@ function setCurrentLoginedUser(lastLoginedUser) {
 }
 
 function addLoginedUser(loginedUser) {
-	var div = $('<div class="ui-form-item ui-border-b"></div>');
+	var div = $('<div class="ui-form-item-lg logined-user"></div>');
 	div.click(function () {
 		setCurrentLoginedUser(loginedUser);
 	});
 
-	var tplHTML = '<div class="ui-avatar-s">' +
-			'<span id="avatar" style="background-image:url(./upload/<%=avatar%>)"></span>' +
+	var tplHTML = '&nbsp;&nbsp;&nbsp;<div class="ui-avatar-s" style="display:inline-block;vertical-align: middle">' +
+			'<span style="background-image:url(./upload/<%=avatar%>)"></span>' +
 			'</div>' +
-			'<input type="text" readonly value="<%=name%>">' +
-		'<a href="javascript:removeLoginedUser(\'<%=name%>\')" class="ui-icon-close"></a>';
+		'<span>&nbsp;&nbsp;&nbsp;<%=name%></span>' +
+		'<a href="javascript:removeLoginedUser(\'<%=name%>\')" class="ui-icon-close ui-form-item-lg" style="font-size: 36px;"></a>';
 	div.append($.tpl(tplHTML,{avatar: loginedUser.avatar, name: loginedUser.name}));
+
 	$('#loginedUsers').append(div);
 }
 

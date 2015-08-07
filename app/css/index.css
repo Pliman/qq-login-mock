@@ -13,6 +13,22 @@ body {
 	padding-left: 0px !important;
 }
 
+.ui-border-b {
+	border-bottom-color: #cccccc;
+}
+
+.ui-icon-down:before {
+	content: "\e628";
+	position: absolute;
+	top: 0;
+	right: 7px;
+}
+
+.logined-user {
+	background-color:white;
+	border-bottom: 1px solid #cccccc;
+}
+
 .ui-form-item-lg {
 	height: 62px !important;
 	line-height: 62px;
@@ -38,3 +54,16 @@ body {
 	width: 110px;
 	height: 110px;
 }
+
+.ui-form .cleaner {
+	visibility: hidden;
+}
+
+.ui-form .focused .cleaner {
+	visibility: visible;
+}
+
+/*dropdown*/
+ul.dropdown                         	{ position: relative; }
+ul.dropdown ul 					{ width: 100%; visibility: hidden; position: absolute; top: 105%; left: 0;}
+ul.dropdown .hover > ul 			{ visibility: visible; opacity:0;}

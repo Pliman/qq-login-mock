@@ -21,19 +21,18 @@
 
 		<div class="ui-form ui-border-t">
 			<form action="#">
-				<div class="ui-form-item ui-form-item-lg ui-form-item-show ui-form-item-link ui-border-b">
-					<input class="user-input" id='userName' type="text" placeholder="用户名">
-					</a>
-				</div>
-				<div class="ui-form-item ui-form-item-lg ui-form-item-show ui-border-b">
-					<input class="user-input" id='userPassword' type="password" placeholder="密码">
-					</a>
-				</div>
-
-				<div ui-flex ui-flex-pack-center>
-					<div id="loginedUsers">
+				<ul class="dropdown">
+					<div class="ui-form-item ui-form-item-lg ui-form-item-show ui-border-b input-container">
+						<input class="user-input" id='userName' type="text" placeholder="用户名">
+						<a href="#" onclick="$('#userName').val('')" class="ui-icon-close ui-form-item-lg cleaner" style="font-size: 36px;right: 40px"></a>
+						<a href="#" id="userChanger" class="ui-icon-down ui-form-item-lg" style="font-size: 36px"></a>
+						<ul id="loginedUsers" style="z-index: 10"></ul>
 					</div>
-				</div>
+					<div class="ui-form-item ui-form-item-lg ui-form-item-show ui-border-b input-container">
+						<input class="user-input" id='userPassword' type="password" placeholder="密码">
+						<a href="#" onclick="$('#userPassword').val('')" class="ui-icon-close ui-form-item-lg cleaner" style="font-size: 36px;"></a>
+					</div>
+				</ul>
 			</form>
 		</div>
 
@@ -50,6 +49,7 @@
 	document.body.style.height = document.documentElement.clientHeight + 'px';
 </script>
 <script src="./lib/frozen-ui/lib/zepto.min.js"></script>
+<script src="./lib/frozen-ui/lib/fx.js"></script>
 <script src="./lib/frozen-ui/js/frozen.js"></script>
 <script src="./lib/lodash/lodash.js"></script>
 <script src="./lib/base64/base64.js"></script>
