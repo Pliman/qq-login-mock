@@ -56,11 +56,11 @@ function addLoginedUser(loginedUser) {
 	});
 
 	var tplHTML = '<div class="ui-avatar-s">' +
-			'<span id="avatar" style="background-image:url(./upload/u1.png)"></span>' +
+			'<span id="avatar" style="background-image:url(./upload/<%=avatar%>)"></span>' +
 			'</div>' +
 			'<input type="text" readonly value="<%=name%>">' +
 		'<a href="javascript:removeLoginedUser(\'<%=name%>\')" class="ui-icon-close"></a>';
-	div.append($.tpl(tplHTML,{name: loginedUser.name}));
+	div.append($.tpl(tplHTML,{avatar: loginedUser.avatar, name: loginedUser.name}));
 	$('#loginedUsers').append(div);
 }
 

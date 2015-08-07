@@ -1,0 +1,40 @@
+body {
+	background-image: -webkit-gradient(linear, right top, left bottom, color-stop(0, #a9e8f1), to(#e6c8ac));
+	/*background-image: -webkit-gradient(radial, right top, left bottom, color-stop(0.1, #a9e8f1), to(#e6c8ac));*/
+}
+
+.ui-container {
+	height: 100%;
+	display: block;
+}
+
+.user-input {
+	text-align: center;
+	padding-left: 0px !important;
+}
+
+.ui-form-item-lg {
+	height: 62px !important;
+	line-height: 62px;
+	font-family: "Microsoft YaHei";
+	font-size: 20px;
+}
+
+.submit-button {
+	width: 98%;
+	color: white;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.5, #00acee), to(#00acee));
+}
+
+.not-width-center {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-box-pack: center;
+	-webkit-box-align: center;
+	text-align: center;
+}
+
+.avatar {
+	width: 110px;
+	height: 110px;
+}

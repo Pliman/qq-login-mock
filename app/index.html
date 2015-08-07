@@ -6,34 +6,28 @@
 	<meta name="format-detection" content="telephone=no">
 	<title>QQ Login Mock</title>
 	<link rel="stylesheet" href="./lib/frozen-ui/css/frozen.css">
-	<link rel="stylesheet" href="./css/login.css">
+	<link rel="stylesheet" href="./css/index.css">
 </head>
 
 <body ontouchstart>
 
 <section class="ui-container">
 	<section id="layout">
-		<div ui-flex ui-flex-pack-center>
-			<div class="ui-avatar-lg">
+		<div class="ui-flex ui-flex-pack-center ui-center">
+			<div class="ui-avatar-lg avatar">
 				<span id="avatar"></span>
 			</div>
 		</div>
 
 		<div class="ui-form ui-border-t">
 			<form action="#">
-				<div class="ui-form-item ui-form-item-show ui-form-item-link ui-border-b">
-					<input id='userName' type="text" placeholder="用户名">
+				<div class="ui-form-item ui-form-item-lg ui-form-item-show ui-form-item-link ui-border-b">
+					<input class="user-input" id='userName' type="text" placeholder="用户名">
 					</a>
 				</div>
-				<div class="ui-form-item ui-form-item-show ui-border-b">
-					<input id='userPassword' type="password" placeholder="密码">
+				<div class="ui-form-item ui-form-item-lg ui-form-item-show ui-border-b">
+					<input class="user-input" id='userPassword' type="password" placeholder="密码">
 					</a>
-				</div>
-
-				<div class="ui-btn-wrap">
-					<div id="login" >
-						确定
-					</div>
 				</div>
 
 				<div ui-flex ui-flex-pack-center>
@@ -42,9 +36,19 @@
 				</div>
 			</form>
 		</div>
+
+		<div class="ui-btn-wrap not-width-center">
+			<div class="submit-button ui-btn-lg ui-form-item-lg" id="login" >
+				登录
+			</div>
+		</div>
 	</section>
 </section>
 
+<script>
+	// 设置body的高度
+	document.body.style.height = document.documentElement.clientHeight + 'px';
+</script>
 <script src="./lib/frozen-ui/lib/zepto.min.js"></script>
 <script src="./lib/frozen-ui/js/frozen.js"></script>
 <script src="./lib/lodash/lodash.js"></script>
