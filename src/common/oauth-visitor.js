@@ -1,26 +1,27 @@
-var http = require('http');
+var http = require('http'),
+	config = require('../config/config');
 
 var oauthVisitor = module.exports;
 
 oauthVisitor.visit = function (path, accessToken, params, cb) {
 	var params ={
-		path: path + '?accessToken=' + accessToken,
-		host: "localhost",
-		port: 3001,
+		path: path + '?access_token=' + accessToken,
+		host: 'localhost',
+		port: config.oauth.port,
 		method: "get"
 	};
 
 
 	var req = http.request(params, function (res) {
+		res.setEncoding('utf8');
 		var allData = [];
-
 		res.on('data', function (data) {
 			allData.push(data);
 		});
 
 		res.on('end', function (data) {
-			allData.push(data);
-			cb && cb(null, allData);
+			data && allData.push(data);
+			cb && cb(null, allData.join());
 		})
 	});
 
@@ -30,3 +31,4 @@ oauthVisitor.visit = function (path, accessToken, params, cb) {
 
 	req.end();
 };
+

@@ -80,7 +80,7 @@ myOAP.on('save_access_token', function(user_id, client_id, access_token) {
 
 // an access token was received in a URL query string parameter or HTTP header
 myOAP.on('access_token', function(req, token, next) {
-	var TOKEN_TTL = 10 * 60 * 1000; // 10 minutes
+	var TOKEN_TTL = 10000 * 60 * 1000;
 
 	if(token.grant_date.getTime() + TOKEN_TTL > Date.now()) {
 		req.session.user = token.user_id;
@@ -117,13 +117,16 @@ app.get('/', function(req, res, next) {
 
 app.get('/user/:name', function(req, res, next) {
 	if(req.session.user) {
-		res.writeHead(303, {Location: '/'});
-		return res.end();
+		return res.send({
+			success: false,
+			msg: '123'
+		});
 	}
 
-	var next_url = req.query.next ? req.query.next : '/';
-
-	res.end('<html><form method="post" action="/login"><input type="hidden" name="next" value="' + next_url + '"><input type="text" placeholder="username" name="username"><input type="password" placeholder="password" name="password"><button type="submit">Login</button></form>');
+	res.send({
+		success: true,
+		msg: '123'
+	});
 });
 
 app.listen(3001);
