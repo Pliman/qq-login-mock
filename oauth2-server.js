@@ -118,13 +118,14 @@ app.get('/', function(req, res, next) {
 app.get('/user/:name', function(req, res, next) {
 	if(req.session.user) {
 		return res.send({
-			success: false,
-			msg: '123'
+			success: true,
+			msg: '123',
+			data: req.session.user
 		});
 	}
 
 	res.send({
-		success: true,
+		success: false,
 		msg: '123'
 	});
 });
