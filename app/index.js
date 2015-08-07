@@ -92,7 +92,7 @@ $('#login').click(function (evt) {
 		success: function (rtn) {
 			if (rtn.result === 'SUCCESS') {
 				addToLoginedUsers(rtn.data);
-				//window.location.href = '/success.html';
+				window.location.href = '/success.html';
 			} else {
 				showError('账号或密码错误，请重新输入');
 			}
